@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewChecked } from '@angular/core';
 import { ChatService } from '../../services/chat.service';
 import { ConversationService } from '../../services/conversation.service';
 
@@ -7,7 +7,7 @@ import { ConversationService } from '../../services/conversation.service';
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.scss']
 })
-export class ChatComponent implements OnInit {
+export class ChatComponent implements OnInit, AfterViewChecked {
   sidebarVisible = true;
   search = '';
   conversations = [] as Array<{ id: string; title: string; lastMessage: string; updatedAt: number }>;
@@ -19,10 +19,21 @@ export class ChatComponent implements OnInit {
   isTyping = false;
   attachments: File[] = [];
 
+  @ViewChild('scrollContainer', { static: false }) scrollContainer!: ElementRef<HTMLDivElement>;
+
   constructor(private chat: ChatService, private conv: ConversationService) { }
 
   ngOnInit() {
     this.refreshList();
+  }
+
+  ngAfterViewChecked(){
+    this.scrollToBottom();
+  }
+
+  private scrollToBottom(){
+    const el = this.scrollContainer && this.scrollContainer.nativeElement;
+    if (el) el.scrollTop = el.scrollHeight;
   }
 
   refreshList(){

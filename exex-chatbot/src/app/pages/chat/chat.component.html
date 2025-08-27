@@ -1,43 +1,40 @@
-<div class="chat-container p-grid">
-  <!-- Sidebar -->
-  <div class="chat-sidebar p-col-12 p-md-3 p-d-flex p-flex-column">
-    <div class="p-p-2">
-      <span class="p-input-icon-left p-fluid">
-        <i class="pi pi-search"></i>
-        <input pInputText type="text" placeholder="Search" [(ngModel)]="search" (ngModelChange)="refreshList()"/>
-      </span>
+<div class="chat-layout">
+  <aside class="sidebar">
+    <div class="search">
+      <i class="pi pi-search"></i>
+      <input pInputText type="text" placeholder="Tìm kiếm hội thoại" [(ngModel)]="search" (ngModelChange)="refreshList()"/>
     </div>
-    <div class="p-p-2 p-flex-1" style="overflow:auto">
-      <div *ngFor="let c of conversations" class="p-p-2 p-d-flex p-jc-between p-ai-center" [ngClass]="{'p-highlight': c.id===activeConversationId}" (click)="activeConversationId=c.id">
-        <div>
-          <div class="p-text-bold">{{ c.title }}</div>
-          <small class="p-text-secondary">{{ c.lastMessage }}</small>
+    <div class="conv-list">
+      <button class="new-btn" pButton type="button" label="Cuộc trò chuyện mới" (click)="activeConversationId=Date.now().toString(); messages=[];"></button>
+      <div *ngFor="let c of conversations" class="conv" [class.active]="c.id===activeConversationId" (click)="activeConversationId=c.id">
+        <div class="title">{{ c.title }}</div>
+        <div class="preview">{{ c.lastMessage }}</div>
+      </div>
+    </div>
+  </aside>
+  <main class="main">
+    <div class="messages" #scrollContainer>
+      <div *ngFor="let m of messages" class="row" [class.me]="m.role==='user'">
+        <div class="bubble">
+          {{ m.text }}
         </div>
-        <i class="pi pi-angle-right"></i>
       </div>
-    </div>
-    <div class="p-p-2">
-      <button pButton type="button" label="New" class="p-button-success p-button-sm" (click)="activeConversationId=Date.now().toString(); messages=[];"></button>
-    </div>
-  </div>
-
-  <!-- Main chat -->
-  <div class="p-col-12 p-md-9 p-d-flex p-flex-column">
-    <div class="chat-message-list">
-      <div *ngFor="let m of messages" class="p-d-flex p-mb-2" [ngClass]="{'p-jc-end': m.role==='user'}">
-        <p-card [style]="{maxWidth:'75%'}" [styleClass]="m.role==='user' ? 'p-ml-auto' : ''">
-          <p>{{ m.text }}</p>
-        </p-card>
-      </div>
-      <div *ngIf="isTyping" class="p-d-flex p-ai-center p-text-secondary">
-        <i class="pi pi-spin pi-spinner p-mr-2"></i>
+      <div *ngIf="isTyping" class="typing">
+        <i class="pi pi-spin pi-spinner"></i>
         <span>Bot đang trả lời…</span>
       </div>
     </div>
-    <div class="chat-input-bar p-p-2 p-d-flex p-ai-center">
-      <input pInputText class="p-mr-2 p-flex-1" [(ngModel)]="inputText" placeholder="Nhập tin nhắn..." (keyup.enter)="send()"/>
-      <p-fileUpload name="files" mode="basic" chooseLabel="File" [auto]="false" customUpload="true" (choose)="attachments=$event.files" class="p-mr-2"></p-fileUpload>
+    <div class="composer">
+      <input pInputText [(ngModel)]="inputText" placeholder="Nhập tin nhắn..." (keyup.enter)="send()"/>
+      <label class="file-btn">
+        <i class="pi pi-paperclip"></i>
+        <input type="file" multiple (change)="attachments = Array.from($event.target.files)" hidden>
+      </label>
       <button pButton icon="pi pi-send" class="p-button-success" (click)="send()"></button>
     </div>
-  </div>
+    <div *ngIf="attachments.length" class="attachments">
+      {{ attachments.length }} file được chọn
+      <a (click)="attachments=[]" class="clear">Xóa</a>
+    </div>
+  </main>
 </div>
