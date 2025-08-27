@@ -1,0 +1,19 @@
+<div class="p-d-flex p-jc-center p-ai-center" style="min-height:60vh">
+  <p-card header="Đăng nhập" [style]="{width:'360px'}">
+    <div class="p-fluid">
+      <div class="p-field">
+        <label>Email</label>
+        <input pInputText type="email" />
+      </div>
+      <div class="p-field">
+        <label>Password</label>
+        <input pInputText type="password" />
+      </div>
+      <button pButton label="Login" class="p-button-success p-mt-2" routerLink="/chat"></button>
+      <div class="p-mt-3">
+        <a routerLink="/register">{{ 'nav.register' | translate }}</a>
+      </div>
+    </div>
+  </p-card>
+  
+</div>

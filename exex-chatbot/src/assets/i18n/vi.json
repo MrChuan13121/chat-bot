@@ -1,0 +1,12 @@
+{
+  "app": {
+    "title": "Exex Chatbot",
+    "tagline": "Giải pháp chatbot thông minh cho doanh nghiệp nhỏ"
+  },
+  "nav": {
+    "chat": "Trò chuyện",
+    "settings": "Cài đặt",
+    "login": "Đăng nhập",
+    "register": "Đăng ký"
+  }
+}

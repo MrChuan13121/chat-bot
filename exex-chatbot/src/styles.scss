@@ -1,0 +1,42 @@
+/* Global styles and design tokens */
+:root{
+  --exex-green:#15b66a;
+  --bg:#ffffff;
+  --fg:#0f172a;
+  --muted:#64748b;
+  --surface:#f8fafc;
+  --border:#e2e8f0;
+}
+
+body{
+  background:var(--bg);
+  color:var(--fg);
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica Neue, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  margin:0;
+}
+
+/* Dark theme */
+body.dark{
+  --bg:#0b0f13;
+  --fg:#e5e7eb;
+  --muted:#94a3b8;
+  --surface:#0f161d;
+  --border:#1f2937;
+}
+
+.app-toolbar{
+  background:var(--surface);
+  border-bottom:1px solid var(--border);
+}
+
+a{ color: var(--fg); }
+.p-button.p-button-success, .p-button.p-button-success:enabled:hover{
+  background: var(--exex-green);
+  border-color: var(--exex-green);
+}
+
+/* Chat layout helpers */
+.chat-container{ height: calc(100vh - 64px); }
+.chat-sidebar{ border-right:1px solid var(--border); background:var(--surface); }
+.chat-message-list{ overflow:auto; height: calc(100% - 64px); padding:1rem; }
+.chat-input-bar{ border-top:1px solid var(--border); background:var(--surface); }
