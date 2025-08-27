@@ -1,0 +1,12 @@
+{
+  "app": {
+    "title": "Exex Chatbot",
+    "tagline": "Smart chatbot solutions for small businesses"
+  },
+  "nav": {
+    "chat": "Chat",
+    "settings": "Settings",
+    "login": "Login",
+    "register": "Register"
+  }
+}
